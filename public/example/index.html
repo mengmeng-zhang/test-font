@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试字体</title>
+  <link rel="stylesheet" href="./styles/common.css">
+  <link rel="stylesheet" href="./styles/index.css">
+  <script src="./lib/forbid-copy.min.js"></script>
+  <!-- <script src="./scripts/index.js"></script> -->
+  <script>
+    function delay(seconds) {
+      var startTime = Date.now(), endTime
+      return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          endTime = Date.now()
+          console.log(`step = ${endTime - startTime}`)
+          resolve()
+        }, seconds)
+      })
+    }
+    /* 
+    ;(async function() {
+      var connectPromise = listener.connect()
+      // await delay(2000)
+      const text = '龙湖集团善待你一生,龙湖集团创建于重庆,发展于全国,物业服务,龙湖地产港股.'
+      // var p1 = document.getElementById('p1')
+      console.log(connectPromise)
+      connectPromise.then((transfer) => {
+        var unicodes = transfer.transform(text)
+        // p1.innerHTML = unicodes
+      }).catch((msg) => {
+        console.log(msg)
+      })
+    })() 
+    //*/
+  </script>
+</head>
+<body>
+  <div id="app">
+    <button id="btn1">&gt;更新页面</button>
+    <button id="btn2">&gt;注入新的css规则</button>
+    <button id="btn3">&gt;随机注入css规则</button>
+    <button id="btn4">&gt;同步方式</button>
+    <button id="btn5">&gt;异步方式</button>
+    <p id="p1"></p>
+    <p>原始内容: 龙湖集团善待你一生,龙湖集团创建于重庆,发展于全国,物业服务,龙湖地产港股.</p>
+    <p>unicodes:</p>
+    <p id="p2"></p>
+  </div>
+  <script>
+    //* 
+    var listener = createCopyListener('zhoujiang1', '123456')
+    const text = '龙湖集团善待你一生,龙湖集团创建于重庆,发展于全国,物业服务,龙湖地产港股.'
+    var p1 = document.getElementById('p1')
+    var p2 = document.getElementById('p2')
+    var btn1 = document.getElementById('btn1')
+    var btn2 = document.getElementById('btn2')
+    var btn3 = document.getElementById('btn3')
+    var btn4 = document.getElementById('btn4')
+    var btn5 = document.getElementById('btn5')
+    var gtransfer
+    // 同步
+    btn4.addEventListener('click', function() {
+      var unicodes = listener.transform(text)
+      if (unicodes) {
+        p1.innerHTML = unicodes
+        p2.innerText = unicodes.split('&#x').join('---')
+      } else {
+        console.log('转换失败')
+      }
+    })
+    // 异步
+    btn5.addEventListener('click', function() {
+      listener.connect().then(function(transfer){
+        gtransfer = transfer
+        var unicodes = transfer.transform(text)
+        p1.innerHTML = unicodes
+        p2.innerText = unicodes.split('&#x').join('---')
+      }).catch((msg) => {
+        console.log('报错了')
+        console.log(msg)
+      })
+    })
+    btn1.addEventListener('click', function(){
+      gtransfer.update()
+      var unicodes = gtransfer.transform(text)
+      p1.innerHTML = unicodes
+      p2.innerText = unicodes.split('&#x').join('---')
+    })
+    btn2.addEventListener('click', function(){
+      listener.addRule('#p1')
+    })
+    btn3.addEventListener('click', function(){
+      var str = 'abcdefghijklmn'
+      listener.addRule('#' + str.split('')[Math.floor(Math.random() * str.length)])
+    })
+  </script>
+</body>
+</html>
