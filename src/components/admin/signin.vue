@@ -93,7 +93,9 @@
                     type: 'success'
                   })
                   delete _this.password;
+
                   window.localStorage.setItem('userName', this.name)
+
                   _this.$router.go(-1)
                 },
                 response => console.log('登录失败'+response)

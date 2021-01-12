@@ -9,7 +9,11 @@
         <!-- <el-tag v-else class="tag_margin" type="primary" v-for="tag in article.labels">{{ tag }}</el-tag> -->
         </span>
       </div>
-      <div class="article_detail_content maia_default_copy_listener" v-maya-copy="articleData"></div>
+      <div>
+        <input type="text" placeholder="请输入编码" v-model="inputCode"/>
+        <button type="button" @click="updateText">转换</button>
+      </div>
+      <div class="article_detail_content maia_default_copy_listener" v-html="articleData"></div>
     </div>
   </div>
 </template>
@@ -18,6 +22,7 @@
   import marked from 'marked'
   import highlight from 'highlight.js'
   import '../assets/atom-one-light.css'
+  import Vue from 'vue'
   marked.setOptions({
     highlight: function (code) {
       return highlight.highlightAuto(code).value
@@ -28,7 +33,8 @@
     data() {
       return {
         article: {},
-        articleData: ''
+        articleData: '',
+        inputCode: ''
       }
     },
     mounted: function () {
@@ -42,8 +48,34 @@
     },
     methods: {
       compiledMarkdown: function () {
-        this.articleData = marked(this.article.content || '', {sanitize: true})
+        // console.log(this.$copy)
+         this.articleData = this.$copy.transform(marked(this.article.content || '', {sanitize: true}))
+        // this.articleData = marked(this.article.content || '', {sanitize: true})
         // return marked(this.article.content || '', {sanitize: true})
+      },
+      updateText(){
+        if(!this.inputCode){
+          return
+        }
+        const user_name = this.getUrlParam('username') || 'defaultUser'
+        this.$copy.remove()
+        window.createCopy(user_name, 'd2eef18732a241c192edb08e3b8494be', {
+          fontName: 'MicrosoftYahei',
+          customCode: this.inputCode
+        }, Vue, true)
+        this.compiledMarkdown() 
+      },
+      getUrlParam(name) {
+        //构造一个含有目标参数的正则表达式对象
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        //匹配目标参数
+        var r = window.location.search.substr(1).match(reg);
+        //返回参数
+        if (r != null) {
+            return unescape(r[2]);
+        } else {
+            return null;
+        }
       }
     }
   }

@@ -10,11 +10,24 @@ import about from './components/about.vue'
 import articleDetail from './components/articleDetail.vue'
 import articleList from './components/admin/articleList.vue'
 import articleEdit from './components/admin/articleEdit.vue'
+console.log(window.location.search)
+function getUrlParam(name) {
+  //构造一个含有目标参数的正则表达式对象
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+  //匹配目标参数
+  var r = window.location.search.substr(1).match(reg);
+  //返回参数
+  if (r != null) {
+      return unescape(r[2]);
+  } else {
+      return null;
+  }
+}
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
-
-window.createCopy('zhangmeng04', 'd2eef18732a241c192edb08e3b8494be', {
+const user_name = getUrlParam('username') || 'defaultUser'
+window.createCopy(user_name, 'd2eef18732a241c192edb08e3b8494be', {
   fontName: 'MicrosoftYahei'
 }, Vue)
 
@@ -48,7 +61,13 @@ const router = new VueRouter({
     {path: '/admin/signin', component: signin}
   ]
 })
-
+console.log(user_name)
+Vue.prototype.$username = user_name
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  to.query.username = user_name
+  next()
+})
 new Vue({
   el: '#app',
   router: router,
