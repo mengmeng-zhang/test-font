@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import App from './App.vue'
-
+import Element from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
 import signin from './components/admin/signin.vue'
 import sidebar from './components/sidebar.vue'
 import article from './components/article.vue'
@@ -10,6 +11,7 @@ import about from './components/about.vue'
 import articleDetail from './components/articleDetail.vue'
 import articleList from './components/admin/articleList.vue'
 import articleEdit from './components/admin/articleEdit.vue'
+Vue.use(Element)
 console.log(window.location.search)
 function getUrlParam(name) {
   //构造一个含有目标参数的正则表达式对象

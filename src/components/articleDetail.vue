@@ -13,6 +13,14 @@
         <input type="text" placeholder="请输入编码" v-model="inputCode"/>
         <button type="button" @click="updateText">转换</button>
       </div>
+      <div>
+        <el-radio-group v-model="radio1">
+          <el-radio-button label="MicrosoftYahei">微软雅黑-138</el-radio-button>
+          <el-radio-button label="towMicrosoftYahei">微软雅黑-240</el-radio-button>
+          <el-radio-button label="PingfangSC">苹方-138</el-radio-button>
+          <el-radio-button label="towPingfangSC">苹方-240</el-radio-button>
+        </el-radio-group>
+      </div>
       <div class="article_detail_content maia_default_copy_listener" v-html="articleData"></div>
     </div>
   </div>
@@ -34,14 +42,14 @@
       return {
         article: {},
         articleData: '',
-        inputCode: ''
+        inputCode: '',
+        radio1: ''
       }
     },
     mounted: function () {
       let id = this.$route.params.id
       this.$http.get('/api/articleDetail/' + id).then((response) => {
         this.article = response.body
-        console.log(response.body)
         this.compiledMarkdown()
       })
       // this.compiledMarkdown()

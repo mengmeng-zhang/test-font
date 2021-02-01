@@ -1,17 +1,17 @@
 <template>
   <div id="left_menu">
     <div class="menu_name">
-      <h1>ChaoHang'S NOTES</h1>
-      <h5>不如吃茶去</h5>
+      <h1>水印字体测试</h1>
+      <!-- <h5>不如吃茶去</h5> -->
     </div>
     <nav>
       <ul>
         <router-link to="/article">
           <li class="nav">
-            <span>首页</span>
+            <span>文章列表</span>
           </li>
         </router-link>
-        <router-link to="/about">
+        <!-- <router-link to="/about">
           <li class="nav">
             <span>关于</span>
           </li>
@@ -20,7 +20,7 @@
           <li class="nav">
             <span>登录</span>
           </li>
-        </router-link>
+        </router-link> -->
         <router-link to="/admin/articleList">
           <li class="nav">
             <span>管理</span>
@@ -33,10 +33,10 @@
         </router-link>
       </ul>
     </nav>
-    <div class="info">
-      <img src="../assets/head.jpg" alt="head">
-      <div class="info_name">CHAOHANG</div>
-      <div class="archive">
+    <!-- <div class="info"> -->
+      <!-- <img src="../assets/head.jpg" alt="head">
+      <div class="info_name">CHAOHANG</div> -->
+      <!-- <div class="archive">
         <ul>
           <router-link to="/article">
             <li>
@@ -45,8 +45,8 @@
             </li>
           </router-link>
         </ul>
-      </div>
-      <ul class="communication">
+      </div> -->
+      <!-- <ul class="communication">
         <li class="communication_item">
           <a href="#">
             <span>GitHub</span>
@@ -67,8 +67,8 @@
             <span>GitHub</span>
           </a>
         </li>
-      </ul>
-    </div>
+      </ul> -->
+    <!-- </div> -->
   </div>
 </template>
 
