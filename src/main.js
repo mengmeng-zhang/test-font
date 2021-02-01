@@ -31,7 +31,7 @@ Vue.use(VueResource)
 const user_name = getUrlParam('username') || 'defaultUser'
 window.createCopy(user_name, 'd2eef18732a241c192edb08e3b8494be', {
   fontName: 'MicrosoftYahei'
-}, Vue)
+}, Vue, null, true)
 
 // 按需引用element
 import { Button, Message, MessageBox, Notification, Popover, Tag, Input } from 'element-ui'

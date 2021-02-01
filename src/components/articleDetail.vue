@@ -14,14 +14,17 @@
         <button type="button" @click="updateText">转换</button>
       </div>
       <div>
-        <el-radio-group v-model="radio1">
+        <el-radio-group v-model="radio1" @change="changeFonts">
           <el-radio-button label="MicrosoftYahei">微软雅黑-138</el-radio-button>
           <el-radio-button label="towMicrosoftYahei">微软雅黑-240</el-radio-button>
           <el-radio-button label="PingfangSC">苹方-138</el-radio-button>
           <el-radio-button label="towPingfangSC">苹方-240</el-radio-button>
         </el-radio-group>
       </div>
-      <div class="article_detail_content maia_default_copy_listener" v-html="articleData"></div>
+      <div :class="[
+        'article_detail_content',
+        'maia_default_copy_listener-' + radio1
+      ]" v-html="articleData"></div>
     </div>
   </div>
 </template>
@@ -43,23 +46,23 @@
         article: {},
         articleData: '',
         inputCode: '',
-        radio1: ''
+        radio1: 'MicrosoftYahei'
       }
     },
     mounted: function () {
       let id = this.$route.params.id
       this.$http.get('/api/articleDetail/' + id).then((response) => {
         this.article = response.body
+        this.changeFonts()
         this.compiledMarkdown()
       })
       // this.compiledMarkdown()
     },
     methods: {
       compiledMarkdown: function () {
-        // console.log(this.$copy)
-         this.articleData = this.$copy.transform(marked(this.article.content || '', {sanitize: true}))
-        // this.articleData = marked(this.article.content || '', {sanitize: true})
-        // return marked(this.article.content || '', {sanitize: true})
+          this.$copy.connect().then(res => {
+            this.articleData = res.transform(marked(this.article.content || '', {sanitize: true}))
+          })
       },
       updateText(){
         if(!this.inputCode){
@@ -68,10 +71,18 @@
         const user_name = this.getUrlParam('username') || 'defaultUser'
         this.$copy.remove()
         window.createCopy(user_name, 'd2eef18732a241c192edb08e3b8494be', {
-          fontName: 'MicrosoftYahei',
+          fontName: this.radio1,
           customCode: this.inputCode
-        }, Vue, true)
+        }, Vue, null, true)
         this.compiledMarkdown() 
+      },
+      changeFonts(val){
+        const user_name = this.getUrlParam('username') || 'defaultUser'
+        this.$copy.remove()
+        window.createCopy(user_name, 'd2eef18732a241c192edb08e3b8494be', {
+          fontName: val || this.radio1
+        }, Vue, null, true)
+        this.compiledMarkdown()
       },
       getUrlParam(name) {
         //构造一个含有目标参数的正则表达式对象

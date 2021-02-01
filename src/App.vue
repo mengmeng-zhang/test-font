@@ -15,6 +15,18 @@
 </script>
 
 <style>
+@font-face { font-family: 'longhu-default-font-MicrosoftYahei'; src: url('/dist/fonts/MicrosoftYahei/MicrosoftYahei.ttf') format('truetype');}
+ body,.maia_default_copy_listener-MicrosoftYahei {font-family: "longhu-default-font-MicrosoftYahei", "PingFang SC";}
+
+ @font-face { font-family: 'longhu-default-font-towMicrosoftYahei'; src: url('/dist/fonts/towMicrosoftYahei/towMicrosoftYahei.ttf') format('truetype');}
+ body,.maia_default_copy_listener-towMicrosoftYahei {font-family: "longhu-default-font-towMicrosoftYahei", "PingFang SC";}
+
+ @font-face { font-family: 'longhu-default-font-PingfangSC'; src: url('/dist/fonts/PingfangSC/PingfangSC.ttf') format('truetype');}
+ body,.maia_default_copy_listener-PingfangSC {font-family: "longhu-default-font-PingfangSC", "PingFang SC";}
+
+ @font-face { font-family: 'longhu-default-font-towPingfangSC'; src: url('/dist/fonts/towPingfangSC/towPingfangSC.ttf') format('truetype');}
+ body,.maia_default_copy_listener-towPingfangSC {font-family: "longhu-default-font-towPingfangSC", "PingFang SC";}
+
   * {
     margin: 0;
     padding: 0;
